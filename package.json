@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "make-migrations": "knex migrate:make temperature && knex migrate:make humidity && knex migrate:make smoke && knex migrate:make vibration",
+    "ts": "tsc -w"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@serialport/parser-readline": "^2.0.2",
-    "serialport": "^7.1.5"
+    "@serialport/parsser-readline": "^2.0.2",
+    "@types/dotenv": "^6.1.1",
+    "@types/serialport": "^7.0.4",
+    "dotenv": "^8.1.0",
+    "knex": "^0.19.5",
+    "serialport": "^7.1.5",
+    "sqlite3": "^4.1.0"
   }
 }
