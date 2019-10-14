@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
+import './fonts/mont/stylesheet.css'
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
