@@ -22,7 +22,7 @@ export class App {
 
     private config() {
         this._app.use(cors());
-        this._app.set('port', process.env.PORT || 3000);
+        this._app.set('port', process.env.PORT || 8000);
     }
 
     public static get Instance(): App {

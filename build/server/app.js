@@ -18,7 +18,7 @@ class App {
     }
     config() {
         this._app.use(cors_1.default());
-        this._app.set('port', process.env.PORT || 3000);
+        this._app.set('port', process.env.PORT || 8000);
     }
     static get Instance() {
         return this._instance || (this._instance = new this());

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "make-migrations": "knex migrate:make temperature && knex migrate:make humidity && knex migrate:make smoke && knex migrate:make vibration",
-    "start": "node .build/server/app",
-    "server": "nodemon ./build/server/app",
+    "start": "node build/server/app",
+    "server": "nodemon build/server/app",
     "ts": "tsc -w"
   },
   "author": "",

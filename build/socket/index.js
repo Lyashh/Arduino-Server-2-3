@@ -13,13 +13,13 @@ class Socket {
     init() {
         this._io.on('connect', (socket) => {
             console.log('Connected client ' + socket.id);
-            //console.log(socket.request.session)
-            //this.joinRoom(socket)
-            //this.messageToServer(socket)
             socket.on('disconnect', () => {
                 console.log('User disconnected');
             });
         });
+    }
+    sendSensors(socket, sensorsData) {
+        socket.emit('sensors', sensorsData);
     }
 }
 exports.default = Socket;

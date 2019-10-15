@@ -4,6 +4,11 @@ import { Server } from 'http'
 
 io.listen(4100).sockets
 
+interface sensorsData {
+    title: string,
+    value: number
+}
+
 
 export default class Socket {
     public _io: io.Server
@@ -15,13 +20,13 @@ export default class Socket {
     public init() {
         this._io.on('connect', (socket: any) => {
             console.log('Connected client ' + socket.id)
-            //console.log(socket.request.session)
-
-            //this.joinRoom(socket)
-            //this.messageToServer(socket)
             socket.on('disconnect',() => {
                 console.log('User disconnected');
             });
         })
+    }
+
+    private sendSensors(socket: any, sensorsData: sensorsData): void {
+        socket.emit('sensors', sensorsData)
     }
 }

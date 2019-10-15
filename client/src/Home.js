@@ -2,6 +2,7 @@ import React from 'react'
 import Parallax from 'parallax-js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Col } from 'react-bootstrap'
+import  Socket from './socket'
 
 
 
@@ -12,6 +13,9 @@ class Home extends React.Component {
 
     componentDidMount() {
         this.parallax = new Parallax(this.scene)
+        Socket.on('sensors', (data) => {
+
+        })
       }
       componentWillUnmount() {
         this.parallax.disable()
@@ -20,7 +24,7 @@ class Home extends React.Component {
     render() {
       return(
         <Row className="m-t-80">
-            <Col md={4}>
+            <Col md={4} sm={12}>
               <Row className="m-t-30">
                 <Col md={6}>
                   <div className="icon-container">
@@ -29,8 +33,9 @@ class Home extends React.Component {
                     </div>
                     <br/>
                       <div>
-                        <img  className="float-l"src="img/icons/temperature.svg" width="90px" height="90px" alt="alt"/>
-                        <p className="float-l icon-text">22</p>
+                        <img  className="in-block" src="img/icons/temperature.svg" width="90px" height="90px" alt="alt"/>
+                        <br/>
+                        <p className="icon-text">24.2C</p>
                       </div>
                     
                   </div>
@@ -43,8 +48,9 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <div>
-                      <img className="float-l" src="img/icons/humidity1.svg" width="90px" height="90px" alt="alt"/>
-                      <p className="float-l icon-text">22</p>
+                      <img className="in-block" src="img/icons/humidity1.svg" width="90px" height="90px" alt="alt"/>
+                      <br/>
+                      <p className="icon-text">54%</p>
                     </div>
                     
                   </div>
@@ -56,8 +62,9 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <div>
-                      <img className="float-l" src="img/icons/co2.svg" width="90px" height="90px" alt="alt"/>
-                      <p className="float-l icon-text">22</p>                      
+                      <img className="in-block" src="img/icons/co2.svg" width="90px" height="90px" alt="alt"/>
+                      <br/>
+                      <p className=" icon-text">84</p>                      
                     </div>
                   </div>
                 </Col>
@@ -68,8 +75,9 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <div>
-                      <img className="float-l" src="img/icons/vibration.svg" width="90px" height="90px" alt="alt"/>
-                      <p className="float-l icon-text">22</p>                      
+                      <img className="in-block" src="img/icons/vibration.svg" width="90px" height="90px" alt="alt"/>
+                      <br/>
+                      <p className="float-l icon-text m-l-0">FALSE</p>                      
                     </div>
                   </div>
                 </Col>
