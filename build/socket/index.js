@@ -4,10 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_1 = __importDefault(require("socket.io"));
+const index_1 = __importDefault(require("../parser/index"));
 socket_io_1.default.listen(4100).sockets;
 class Socket {
     constructor(server) {
         this._io = socket_io_1.default(server);
+        this._parser = new index_1.default;
     }
     init() {
         this._io.on('connect', (socket) => {
@@ -15,10 +17,8 @@ class Socket {
             socket.on('disconnect', () => {
                 console.log('User disconnected');
             });
+            this._parser.listenArduino(socket);
         });
-    }
-    sendSensors(socket, sensorsData) {
-        socket.emit('sensors', sensorsData);
     }
 }
 exports.default = Socket;

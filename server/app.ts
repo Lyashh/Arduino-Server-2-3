@@ -1,7 +1,6 @@
 import express from 'express'
 import {createServer, Server} from 'http'
 import cors from 'cors'
-import Parser from '../parser'
 
 import socket from '../socket/index'
 
@@ -13,14 +12,13 @@ export class App {
     private _app: express.Application
     private _server: Server
     private _socket: any
-    private _parser: Parser
 
     constructor() {
         this._app = express()
         this._server = createServer(this._app)
         this._socket = new socket(this._server)
-        this._parser = new Parser
         this.config()
+
     }
 
     private config() {

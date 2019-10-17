@@ -4,16 +4,38 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Col } from 'react-bootstrap'
 import  Socket from './socket'
 
-
-
 class Home extends React.Component {
     constructor(props) {
       super(props)
+      this.state = {
+        temperature: 0,
+        humidity: 0,
+        vibration: false,
+        smoke: 0
+      } 
     }
 
     componentDidMount() {
         this.parallax = new Parallax(this.scene)
-        Socket.on('sensors', (data) => {
+        Socket.on('sensors', (sensor) => {
+          if(sensor.title == 'Temperature') {
+            this.setState({temperature: sensor.value})
+          } 
+
+          else if(sensor.title == 'Humidity') {
+            this.setState({humidity: sensor.value})
+          } 
+
+          else if(sensor.title == 'Vibration') {
+            this.setState({vibration: sensor.value})
+            setTimeout(() => {
+              this.setState({vibration: false})
+            }, 4000);
+          } 
+
+          else if(sensor.title == 'Smoke') {
+            this.setState({smoke: sensor.value})
+          } 
 
         })
       }
@@ -22,6 +44,12 @@ class Home extends React.Component {
       }
   
     render() {
+      const haveVibratiom = (
+        <p className="float-l icon-text m-l-0 text-red">Warning!</p>
+      )
+      const notVibrate = (
+        <p className="float-l icon-text m-l-0 text-green">OK</p>
+      )
       return(
         <Row className="m-t-80">
             <Col md={4} sm={12}>
@@ -35,7 +63,7 @@ class Home extends React.Component {
                       <div>
                         <img  className="in-block" src="img/icons/temperature.svg" width="90px" height="90px" alt="alt"/>
                         <br/>
-                        <p className="icon-text">24.2C</p>
+                        <p className="icon-text">{this.state.temperature}℃</p>
                       </div>
                     
                   </div>
@@ -50,7 +78,7 @@ class Home extends React.Component {
                     <div>
                       <img className="in-block" src="img/icons/humidity1.svg" width="90px" height="90px" alt="alt"/>
                       <br/>
-                      <p className="icon-text">54%</p>
+                      <p className="icon-text">{this.state.humidity}%</p>
                     </div>
                     
                   </div>
@@ -64,7 +92,7 @@ class Home extends React.Component {
                     <div>
                       <img className="in-block" src="img/icons/co2.svg" width="90px" height="90px" alt="alt"/>
                       <br/>
-                      <p className=" icon-text">84</p>                      
+                      <p className=" icon-text">{this.state.smoke}</p>                      
                     </div>
                   </div>
                 </Col>
@@ -77,7 +105,7 @@ class Home extends React.Component {
                     <div>
                       <img className="in-block" src="img/icons/vibration.svg" width="90px" height="90px" alt="alt"/>
                       <br/>
-                      <p className="float-l icon-text m-l-0">FALSE</p>                      
+                        {this.state.vibration ? haveVibratiom : notVibrate}
                     </div>
                   </div>
                 </Col>

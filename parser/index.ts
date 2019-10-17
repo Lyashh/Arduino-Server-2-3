@@ -24,12 +24,25 @@ export default class Parser {
 		this._parser.on('data', (line: any) => {
 			this._sensorsTitles.forEach(title => {
 				if(line.includes(title)) {
-					const arr = line.split(':')
-					const sensor: Sensor = {
-					   title,
-					   value: parseFloat(arr[1])
+					if(title == 'Vibration')
+					{	
+						const arr = line.split(':')
+						const sensor: Sensor = {
+							title,
+							value: parseFloat(arr[1])
+						}
+						if(sensor.value) {
+							socket.emit('sensors', sensor)
+						}
+					} else {
+						const arr = line.split(':')
+						const sensor: Sensor = {
+							title,
+							value: parseFloat(arr[1])
+						}
+						socket.emit('sensors', sensor)
 					}
-					socket.emit('sensors', sensor)
+					
 		   		}
 			})
 		})

@@ -14,15 +14,28 @@ class Parser {
         this._port.pipe(this._parser);
         this._sensorsTitles = ['Temperature', 'Humidity', 'Vibration', 'Smoke'];
     }
-    listenArduino() {
+    listenArduino(socket) {
         this._parser.on('data', (line) => {
             this._sensorsTitles.forEach(title => {
                 if (line.includes(title)) {
-                    const arr = line.split(':');
-                    const sensor = {
-                        title,
-                        value: parseFloat(arr[1])
-                    };
+                    if (title == 'Vibration') {
+                        const arr = line.split(':');
+                        const sensor = {
+                            title,
+                            value: parseFloat(arr[1])
+                        };
+                        if (sensor.value) {
+                            socket.emit('sensors', sensor);
+                        }
+                    }
+                    else {
+                        const arr = line.split(':');
+                        const sensor = {
+                            title,
+                            value: parseFloat(arr[1])
+                        };
+                        socket.emit('sensors', sensor);
+                    }
                 }
             });
         });

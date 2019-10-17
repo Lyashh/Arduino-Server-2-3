@@ -55,7 +55,7 @@ code {
 }
 
 .m-t-30 {
-  margin-top: 50px;
+  margin-top: 30px;
   padding-left: 60px;
 }
 
@@ -65,4 +65,12 @@ code {
 
 .m-l-0 {
   margin-left: 0;
+}
+
+.text-red {
+  color: #E74C3C;
+}
+
+.text-green {
+  color: #27AE60;
 }
