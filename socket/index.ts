@@ -1,6 +1,5 @@
 import io from 'socket.io'
 import { Server } from 'http'
-//import Message from '../db/models/message' 
 
 io.listen(4100).sockets
 
@@ -8,7 +7,6 @@ interface sensorsData {
     title: string,
     value: number
 }
-
 
 export default class Socket {
     public _io: io.Server

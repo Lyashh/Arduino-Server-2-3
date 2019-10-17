@@ -23,7 +23,6 @@ class Parser {
                         title,
                         value: parseFloat(arr[1])
                     };
-                    return sensor;
                 }
             });
         });

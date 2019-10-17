@@ -20,7 +20,7 @@ export default class Parser {
 		this._sensorsTitles = ['Temperature', 'Humidity', 'Vibration', 'Smoke']
 	}
 
-	public listenArduino() {
+	public listenArduino(socket: any): void {
 		this._parser.on('data', (line: any) => {
 			this._sensorsTitles.forEach(title => {
 				if(line.includes(title)) {
@@ -28,13 +28,14 @@ export default class Parser {
 					const sensor: Sensor = {
 					   title,
 					   value: parseFloat(arr[1])
-					 }
-					return sensor 
+					}
+					socket.emit('sensors', sensor)
 		   		}
 			})
-		  })
+		})
 	}
 }
+
 
 
 

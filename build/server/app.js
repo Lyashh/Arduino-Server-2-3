@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const http_1 = require("http");
 const cors_1 = __importDefault(require("cors"));
+const parser_1 = __importDefault(require("../parser"));
 const index_1 = __importDefault(require("../socket/index"));
 const dotenv_1 = __importDefault(require("dotenv")); //add env
 dotenv_1.default.config();
@@ -14,6 +15,7 @@ class App {
         this._app = express_1.default();
         this._server = http_1.createServer(this._app);
         this._socket = new index_1.default(this._server);
+        this._parser = new parser_1.default;
         this.config();
     }
     config() {

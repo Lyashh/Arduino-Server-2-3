@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_1 = __importDefault(require("socket.io"));
-//import Message from '../db/models/message' 
 socket_io_1.default.listen(4100).sockets;
 class Socket {
     constructor(server) {
