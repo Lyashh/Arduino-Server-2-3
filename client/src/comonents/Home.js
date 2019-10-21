@@ -1,8 +1,8 @@
 import React from 'react'
-import Parallax from 'parallax-js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Row, Col } from 'react-bootstrap'
-import  Socket from './socket'
+import  Socket from '../socket'
+import { Link } from "react-router-dom"
 
 class Home extends React.Component {
     constructor(props) {
@@ -16,7 +16,6 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.parallax = new Parallax(this.scene)
         Socket.on('sensors', (sensor) => {
           if(sensor.title == 'Temperature') {
             this.setState({temperature: sensor.value})
@@ -40,7 +39,6 @@ class Home extends React.Component {
         })
       }
       componentWillUnmount() {
-        this.parallax.disable()
       }
   
     render() {
@@ -57,11 +55,11 @@ class Home extends React.Component {
                 <Col md={6}>
                   <div className="icon-container">
                     <div className="in-block">
-                      <p className="icon-title">Temperature</p>                      
+                      <p className="icon-title">Temperature</p>              
                     </div>
                     <br/>
                       <div>
-                        <img  className="in-block" src="img/icons/temperature.svg" width="90px" height="90px" alt="alt"/>
+                        <img  className="in-block icon" src="img/icons/temperature.svg" alt="alt"/>
                         <br/>
                         <p className="icon-text">{this.state.temperature}℃</p>
                       </div>
@@ -76,7 +74,7 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <div>
-                      <img className="in-block" src="img/icons/humidity1.svg" width="90px" height="90px" alt="alt"/>
+                      <img className="in-block icon" src="img/icons/humidity1.svg" alt="alt"/>
                       <br/>
                       <p className="icon-text">{this.state.humidity}%</p>
                     </div>
@@ -90,7 +88,7 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <div>
-                      <img className="in-block" src="img/icons/co2.svg" width="90px" height="90px" alt="alt"/>
+                      <img className="in-block icon" src="img/icons/co2.svg" alt="alt"/>
                       <br/>
                       <p className=" icon-text">{this.state.smoke}</p>                      
                     </div>
@@ -103,7 +101,7 @@ class Home extends React.Component {
                     </div>
                     <br/>
                     <div>
-                      <img className="in-block" src="img/icons/vibration.svg" width="90px" height="90px" alt="alt"/>
+                      <img className="in-block icon" src="img/icons/vibration.svg" alt="alt"/>
                       <br/>
                         {this.state.vibration ? haveVibratiom : notVibrate}
                     </div>
@@ -112,10 +110,16 @@ class Home extends React.Component {
               </Row>
             </Col>
 
-            <Col md={8} ref={el => this.scene = el} className="p-20">
-                <div className="layer" data-depth="0.20">
-                    <img src="servers.svg" width="90%" height="90%" alt="alt"/>
-                </div>
+            <Col md={7} className="p-20">
+              <div className="server-container">
+                <img src="servers.svg" width="88%" height="88%" alt="alt" className="layer vert-move" />
+              </div>
+               
+            </Col>
+            <Col md={1}>
+              <Link to="/info">
+                    <img src="img/icons/previous.svg" className="arrow" width="50px" height="50px" alt="alt"/>
+              </Link>
             </Col>
         </Row>
       )

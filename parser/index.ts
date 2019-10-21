@@ -1,7 +1,10 @@
 import SerialPort from 'serialport'
+import TemperatureDB from '../db/models/temperature'
+
 const Readline = SerialPort.parsers.Readline
 
-interface Sensor {
+
+export interface Sensor {
 	title: String
 	value: Number
 }
