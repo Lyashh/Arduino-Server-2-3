@@ -10,7 +10,7 @@ export default class TemperatureModel {
         this._db = this._knex.connection        
     }
 
-    private insert(data: Sensor) {
+    public insert(data: Sensor) {
         return this._db.insert(data).into('temperature').returning('*')
     }
 }

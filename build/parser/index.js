@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const serialport_1 = __importDefault(require("serialport"));
+const temperature_1 = __importDefault(require("../db/models/temperature"));
 const Readline = serialport_1.default.parsers.Readline;
 class Parser {
     constructor() {
@@ -12,6 +13,7 @@ class Parser {
         });
         this._parser = new Readline({ delimiter: '\r\n' });
         this._port.pipe(this._parser);
+        this._temperatureDB = new temperature_1.default;
         this._sensorsTitles = ['Temperature', 'Humidity', 'Vibration', 'Smoke'];
     }
     listenArduino(socket) {
@@ -34,6 +36,11 @@ class Parser {
                             title,
                             value: parseFloat(arr[1])
                         };
+                        if (title == 'Temperature') {
+                            this._temperatureDB.insert(sensor)
+                                .then((res) => console.log('save to db    ' + res))
+                                .catch((err) => console.log(err));
+                        }
                         socket.emit('sensors', sensor);
                     }
                 }

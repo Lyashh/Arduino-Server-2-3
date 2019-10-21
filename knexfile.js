@@ -4,7 +4,7 @@ dotenv.config()
 const database = {
   client: 'sqlite3',
   connection: {
-    filename: `${__dirname}/${process.env.DB_PATH}`
+    filename: `${__dirname}/${process.env.DB_PATH_DEV}`
   },
   useNullAsDefault: true,
   migrations: {

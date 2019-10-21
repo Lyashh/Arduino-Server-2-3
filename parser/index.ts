@@ -1,8 +1,6 @@
 import SerialPort from 'serialport'
 import TemperatureDB from '../db/models/temperature'
-
 const Readline = SerialPort.parsers.Readline
-
 
 export interface Sensor {
 	title: String
@@ -13,6 +11,7 @@ export default class Parser {
 	private _port: SerialPort
 	private _parser: any
 	private _sensorsTitles: Array<String>
+	private _temperatureDB: TemperatureDB
 
 	constructor() {
 		this._port = new SerialPort('COM7', {
@@ -20,6 +19,7 @@ export default class Parser {
 		  })
 		this._parser = new Readline({delimiter: '\r\n'})
 		this._port.pipe(this._parser)
+		this._temperatureDB = new TemperatureDB
 		this._sensorsTitles = ['Temperature', 'Humidity', 'Vibration', 'Smoke']
 	}
 
@@ -42,6 +42,12 @@ export default class Parser {
 						const sensor: Sensor = {
 							title,
 							value: parseFloat(arr[1])
+						}
+
+						if(title == 'Temperature') {
+							this._temperatureDB.insert(sensor)
+								.then((res:any) => console.log('save to db    ' + res))
+								.catch((err: any) => console.log(err))
 						}
 						socket.emit('sensors', sensor)
 					}
