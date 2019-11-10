@@ -1,6 +1,5 @@
 import io from 'socket.io'
 import { Server } from 'http'
-import Parser from '../parser/index'
 
 io.listen(4100).sockets
 
@@ -11,11 +10,11 @@ interface sensorsData {
 
 export default class Socket {
     public _io: io.Server
-    public _parser: Parser
+    
 
     constructor(server: Server) {
         this._io = io(server)
-        this._parser = new Parser
+       
     }
 
     public init() {
@@ -24,7 +23,7 @@ export default class Socket {
             socket.on('disconnect',() => {
                 console.log('User disconnected');
             })
-            this._parser.listenArduino(socket)
+          
         })
     }
 }
