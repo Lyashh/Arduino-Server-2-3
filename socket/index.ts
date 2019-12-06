@@ -1,5 +1,7 @@
 import io from 'socket.io'
 import { Server } from 'http'
+import express from 'express'
+
 
 io.listen(4100).sockets
 
@@ -15,21 +17,14 @@ export default class Socket {
         this._io = io(server)
     }
 
-    public init() {
+    public async init(expressApp: express.Application) {
         this._io.on('connect', (socket: any) => {
             console.log('Connected client ' + socket.id)
-            
-            this.getSensors(socket)
+            expressApp.set('socketio', socket);
+            //this.getSensors(socket)
             socket.on('disconnect',() => {
                 console.log('User disconnected');
             })
-          
-        })
-    }
-
-    private getSensors(socket: any) {
-        socket.on('sendSensors', async (data: sensorsData) => {
-            console.log(data);
         })
     }
 }

@@ -17,19 +17,17 @@ class Socket {
     constructor(server) {
         this._io = socket_io_1.default(server);
     }
-    init() {
-        this._io.on('connect', (socket) => {
-            console.log('Connected client ' + socket.id);
-            this.getSensors(socket);
-            socket.on('disconnect', () => {
-                console.log('User disconnected');
+    init(expressApp) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this._io.on('connect', (socket) => {
+                console.log('Connected client ' + socket.id);
+                expressApp.set('socketio', socket);
+                //this.getSensors(socket)
+                socket.on('disconnect', () => {
+                    console.log('User disconnected');
+                });
             });
         });
-    }
-    getSensors(socket) {
-        socket.on('sendSensors', (data) => __awaiter(this, void 0, void 0, function* () {
-            console.log(data);
-        }));
     }
 }
 exports.default = Socket;

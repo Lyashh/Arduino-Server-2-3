@@ -8,6 +8,7 @@ const root_1 = __importDefault(require("../controllers/root"));
 class RootRouter {
     static get routes() {
         this._router.get('/', root_1.default.index);
+        this._router.post('/sensor', root_1.default.sensor);
         return this._router;
     }
 }

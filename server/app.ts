@@ -27,8 +27,8 @@ export class App {
         this._app.use(cors())
         this._app.use(bodyParser.urlencoded({extended: false}));
         this._app.use(bodyParser.json());
-        this._app.use('/', Router.routes)
-        this._app.set('port', process.env.PORT || 8000)
+        this._app.use('/v1', Router.routes)
+        this._app.set('port', process.env.PORT || 8000)  
     }
 
     public static get Instance(): App {
@@ -38,7 +38,7 @@ export class App {
     public init() {
         this._server.listen(this._app.get('port'), () => {
             console.log(`SERVER RUN ON PORT ${ this._app.get('port') }`)
-            this._socket.init()
+            this._socket.init(this._app)
         })
     }
 }

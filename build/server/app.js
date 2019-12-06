@@ -22,7 +22,7 @@ class App {
         this._app.use(cors_1.default());
         this._app.use(body_parser_1.default.urlencoded({ extended: false }));
         this._app.use(body_parser_1.default.json());
-        this._app.use('/', routes_1.default.routes);
+        this._app.use('/v1', routes_1.default.routes);
         this._app.set('port', process.env.PORT || 8000);
     }
     static get Instance() {
@@ -31,7 +31,7 @@ class App {
     init() {
         this._server.listen(this._app.get('port'), () => {
             console.log(`SERVER RUN ON PORT ${this._app.get('port')}`);
-            this._socket.init();
+            this._socket.init(this._app);
         });
     }
 }

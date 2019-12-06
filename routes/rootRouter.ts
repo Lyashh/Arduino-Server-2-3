@@ -6,6 +6,7 @@ export default class RootRouter {
 
     public static get routes() {
         this._router.get('/', RootController.index)
+        this._router.post('/sensor', RootController.sensor)
         return this._router
     }
 }
