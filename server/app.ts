@@ -1,6 +1,8 @@
 import express from 'express'
 import {createServer, Server} from 'http'
+import Router from '../routes'
 import cors from 'cors'
+import bodyParser from 'body-parser'
 
 import socket from '../socket/index'
 
@@ -23,6 +25,9 @@ export class App {
 
     private config() {
         this._app.use(cors())
+        this._app.use(bodyParser.urlencoded({extended: false}));
+        this._app.use(bodyParser.json());
+        this._app.use('/', Router.routes)
         this._app.set('port', process.env.PORT || 8000)
     }
 
